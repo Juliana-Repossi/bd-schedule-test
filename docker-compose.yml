@@ -1,0 +1,19 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:10
+    environment:
+      - POSTGRES_PASSWORD=123
+    ports:
+      - 5310:5432
+    volumes:
+        # Solution to import all *.sql during initialization
+        - ./init:/docker-entrypoint-initdb.d
+
+  boca-adminer:
+        image: adminer:latest
+        environment:
+            - ADMINER_DEFAULT_SERVER=postgres
+        ports:
+            - 8080:8080
+
